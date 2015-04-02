@@ -1,0 +1,124 @@
+%!TEX TS-program = xelatex
+\documentclass[]{friggeri-cv}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont={Microsoft JhengHei Bold}]{Microsoft JhengHei}
+\setCJKmonofont{PMingLiU}
+\setCJKsansfont{DFKai-SB}
+ \newCJKfontfamily[cuhei]\cuti{Microsoft JhengHei Bold}
+\hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfsubject={},
+    pdfkeywords={},
+    colorlinks=false,       % no lik border color
+   allbordercolors=white    % white border color for all
+}
+\addbibresource{bibliography.bib}
+\RequirePackage{xcolor}
+\definecolor{pblue}{HTML}{0395DE}
+
+\begin{document}
+\header{于}{润泽}
+      {研究方向，所学专业}
+      
+% Fake text to add separator      
+\fcolorbox{white}{gray}{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
+.....
+}}
+
+% In the aside, each new line forces a line break
+\begin{aside}
+\section{\cuti 生日}
+1994.11.18
+\section{\cuti 籍贯}
+河北唐山
+\section{\cuti 地址}
+海淀区~新街口外大街19号~北京师范大学
+\section{\cuti 政治面貌}
+共青团员
+\section{\cuti 电话}
++86~188~1147~7848
+\section{Mail}
+\href{mailto:yurunze@mail.bnu.edu.cn}{\textbf{yurunze@}\\mail.bnu.edu.cn}
+\href{mailto:watrz@hotmail.com}{\textbf{watrz@}\\hotmail.com}
+\section{\cuti 编程技能}
+    ~
+    \includegraphics[scale=0.62]{img/programming.pdf}
+    ~
+  \section{\cuti 操作系统运维}
+    \textbf{GNU/Linux}\includegraphics[scale=0.16]{img/5stars}
+    \textbf{MacOS}\includegraphics[scale=0.16]{img/4stars}
+    \textbf{Windows}\includegraphics[scale=0.16]{img/2stars}
+  \section{\cuti 其他技能}
+    ~
+    \includegraphics[scale=0.62]{img/personal.pdf}
+    ~
+  \section{\cuti 语言}
+    \textbf{English}\includegraphics[scale=0.16]{img/5stars}
+    \textbf{Deutsch}\includegraphics[scale=0.16]{img/3stars}
+    \textbf{日本語}\includegraphics[scale=0.16]{img/2stars}
+\end{aside}
+
+\section{\cuti 重要项目经历}
+\begin{entrylist}
+  \entry
+    {2013 - 2015}
+    {\cuti 项目名称}
+    {项目支持类型}
+    {项目主要研究内容\\}
+\end{entrylist}
+
+\section{\cuti 高等教育经历}
+\begin{entrylist}
+  \entry
+    {2012 - 2016}
+    {\cuti 物理学 学士学位}
+    {北京师范大学（在读）}
+    {研究方向：xxxxxx\\
+    参与竞赛：xxxxxxxxx\\
+    骨干经历：xxxxxxxxx\\}
+\end{entrylist}
+
+\section{\cuti 论文发表情况}
+\begin{entrylist}
+  \entry
+    {09/2014}
+    {\cuti 论文名称，作者}
+    {论文发布单位}
+    {\emph{论文大概内容}}
+\end{entrylist}\\
+
+\section{\cuti 出版物发表情况}
+作者\\
+\textbf{书名}\\
+\emph{主要工作}
+\\
+
+\vspace{40pt}
+
+\begin{flushright}
+\emph{二〇一五年四月二日}
+\end{flushright}
+\begin{flushright}
+\emph{于润泽}
+\end{flushright}
+
+%%% This piece of code has been commented by Karol Kozioł due to biblatex errors. 
+% 
+%\printbibsection{article}{article in peer-reviewed journal}
+%\begin{refsection}
+%  \nocite{*}
+%  \printbibliography[sorting=chronological, type=inproceedings, title={international peer-reviewed conferences/proceedings}, notkeyword={france}, heading=subbibliography]
+%\end{refsection}
+%\begin{refsection}
+%  \nocite{*}
+%  \printbibliography[sorting=chronological, type=inproceedings, title={local peer-reviewed conferences/proceedings}, keyword={france}, heading=subbibliography]
+%\end{refsection}
+%\printbibsection{misc}{other publications}
+%\printbibsection{report}{research reports}
+
+\end{document}
