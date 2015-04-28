@@ -1,13 +1,20 @@
 \documentclass{article}
+%\usepackage{setspace}
+%\setlength\textwidth{46em}
 \usepackage[osf]{mathpazo} %使用Palition字体
 \usepackage{bm} %粗体
 \usepackage{amsmath} %ams数学
+\usepackage{indentfirst}   %首行
+\setlength{\parindent}{1em}%缩进
+\usepackage{booktabs}%三划表
 \renewcommand{\d}[2]{\frac{\text{d} #1}{\text{d} #2}} %导数\d{}{}
-
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} %表格换行
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
 \begin{document}
 %====标题====%
 \title{An Advanced Method to Solve the Landau-Lifshitz Equation}
-\author{Watrz}
+\author{Authors}
 \date{Beijing Normal University}
 \maketitle
 %============%
@@ -15,15 +22,225 @@
 
 %====摘要====%
 \begin{abstract}
-Landau-Lifshitz Equation,
+The Landau-Lifshitz equation bears a fundamental and important role in the understanding of magnetization dynamics. As a nonlinear partial differential equation, it is aninteresting field researched in mathematical physics. In this paper, we use an advanced method, Gauss-Seidel method to solve this equation, and compare the result of G-S method with the result of Runge-Kutta method. At the end of this paper, compute the magnetic hystersis loop with the new method.
 \end{abstract}
 \paragraph{Keywords} Landau-Lifshitz Equation, Micromagnetics, Gauss-Seidel Method
 %===========%
 
 
 %====LLE====%
-\section{Landau-Lifshitz Equation}
+\section{INTRODUCTION}
+Landau and Lifshitz gave this equation (Eq. \eqref{eq1}) in 1935:
 \begin{equation}
-\d{\bm{M}}{t}=-\gamma \bm{M}\times \bm{H}_\text{eff}=\lambda \bm{M}\times \left(\bm{M}\times\bm{H}_\text{eff}\right)
+\d{\bm{M}}{t}=-\gamma \bm{M}\times \bm{H}_\text{eff}-\frac{\gamma \alpha}{M_s} \bm{M}\times \left(\bm{M}\times\bm{H}_\text{eff}\right)\label{eq1}
 \end{equation}
+
+$\left|\bm{M}\right|=M_s$ is the saturation magnetization, and is usually set to a constant far from the Curie temperature $T_c$. The first term on the right side in \eqref{eq1} is the gyromagnetic term, $\gamma$ is the gyromagnetic ratio. The second term is the damping term, and $\alpha$ is the dimensionless damping coeffcient. $\bm{H}_\text{eff}$ is the local field, can be computed from the Landau-Lifshitz free energy function\footnote{functional}:
+\begin{equation}
+\bm{H}_\text{eff}=-\frac{\delta \mathcal{F}}{\delta \bm{M}}\label{eq2}
+\end{equation}
+\begin{equation}
+\mathcal{F}\left[\bm{M}\right]=\frac{1}{2}\int_{\Omega}\left\{\Phi \left(\frac{\bm{M}}{M_s}\right)+\frac{A}{M_s^2}\left|\nabla\bm{M}\right|^2-2\mu_0\bm{H}_{e}\cdot \bm{M}\right\}\mathrm{d}x +\frac{\mu_0}{2}\int_{\mathbb{R}^3}\left|\nabla U\right|^2\mathrm{d}x\label{eq3}
+\end{equation}
+
+$A$ is the exchange constant, $\displaystyle\frac{A}{m_s^2}\left|\nabla M\right|^2$ is the exchange interaction energy between the spin, $\displaystyle \Phi\left(\frac{M}{M_s}\right)$\footnote{?} is the energy resulting from material anisotropy, $\mu_0$ is the permeability of vacuum ($\displaystyle\mu_0=4\pi\times10^{-7}\mathrm{N}\cdot \mathrm{A}^{-2}$ in the S.I.), $-2\mu_0\bm{H}_e\cdot \bm{M}$ is the energy resulting from the extercal applied field, $\Omega$ is the volume occupird by the material, and the last term in \eqref{eq3} is the energy resulting from the field induced by the magnetization disrtibution inside the material. The indeces field $\bm{H}_s=-\nabla U$ can be coputed by solving
+\begin{equation}
+\Delta M=\left\{\begin{array}{ll}
+\bm{\nabla}\cdot \bm{M} & \text{in}\,\Omega \\ 
+0 & \text{outside}\,\Omega \\ 
+\end{array} \right.\label{eq4}
+\end{equation}
+and the jump conditions at the boundary of the domain $\Omega$ are
+\begin{equation}
+\begin{split}
+\left[U\right]_{\partial \Omega}&=0 \\
+\left[\frac{\partial U}{\partial \nu}\right]_{\partial \Omega}&=-\bm{M}\cdot \nu\label{eq5}
+\end{split}
+\end{equation}
+
+In \eqref{eq5} we donate by $\displaystyle\left[v\right]_{\partial \Omega}$ the jump of $\nu$ at boundary of $\Omega$:
+\begin{equation}
+\left[\nu\right]_{|\partial \Omega}\left(x\right)=\lim_{\substack{y \to x\\y\in\bar{\Omega}^c}}\nu\left(y\right)-\lim_{\substack{y \to x\\y\in\Omega^c}}\nu\left(y\right)\label{eq6}
+\end{equation}
+The solution to Eq.\eqref{eq4}, with boundary conditions \eqref{eq5} is
+\begin{equation}
+\nabla u\left(x\right)=\nabla \int_\Omega \nabla N\left(x-y\right)\cdot \bm{M}\left(y\right)\mathrm{d} y\label{eq7}
+\end{equation}
+where $\displaystyle N\left(x\right)=-\frac{1}{4\pi}\frac{1}{\left|x\right|}$ is the Newtonian potential.
+
+The gyromagnetic term in the Landau-Lifshitz equation \eqref{eq1} is a conservative term,
+whereas the damping term is dissipative.
+
+This paper is organized as followws: In Section 2 we compute the effect field in ferromagnet by Landau-Lifshitz free energy function and the demagnetizing matrix in ferromagnet by .\footnote{weiwandaixu}
+\section{}
+\subsection{EFFECT FIELD IN FERROMAGNET}
+General material systems' free energy $\mathcal{F}_0$ is a function of temperature $T$ and volume $V$, that is accord with the experimental condition of non closed system. Because of the spontaneous magnetization in ferromagnet, the magnetization $\bm{M}$ isn't propertantional to the external field $\bm{H}_\text{ext}$. The total free energy of ferromagnet is (in the c.g.s. system):
+\begin{equation}
+\mathcal{F}\left(\left\{\bm{m}\right\}\right)=\mathcal{F}_0+\mathcal{H}_\text{ext}+\mathcal{H}_\text{a}+\mathcal{H}_\text{ex}+\mathcal{H}_\text{m}\label{eq8}
+\end{equation}
+\begin{equation}
+\mathcal{H}_\text{ext}=-\iiint\mathrm{d}^3\bm{r} M_s\bm{m}\left(\bm{r}\right)\cdot \bm{H}_\text{ext}\left(\bm{r}\right)\label{eq9}
+\end{equation}
+\begin{equation}
+\mathcal{H}_\text{a}^\text{u}=\iiint \mathrm{d}^3\bm{r} K\left[\bm{m}\left(\bm{r}\right)\times \hat{k}\left(\bm{r}\right)\right]^2\label{eq10}
+\end{equation}
+\begin{equation}
+\mathcal{H}_\text{ex}=\frac{1}{2}\iiint \mathrm{d}^3 \bm{r} A^*\left(\frac{\partial \bm{m}\left(\bm{r}\right)}{\partial r_i}\right)\cdot \left(\frac{\partial \bm{m}\left(\bm{r}\right)}{\partial r_i}\right)\label{eq11}
+\end{equation}
+\begin{equation}
+\mathcal{H}_\text{m}=\frac{1}{2V}\left(4\pi M_s^2\right)\iiint \mathrm{d}^3\bm{r}\iiint \mathrm{d}^{3}\bm{r}'\bm{m}\left(\bm{r}\right)\cdot\tilde{N}\left(\bm{r},\bm{r}'\right) \cdot\bm{m}\left(\bm{r}\right)\label{eq12}
+\end{equation}
+
+Use Eq.\eqref{eq2} - Eq.\eqref{eq3}, the effect field for the local magnetization moment $\bm{M}=M_s\bm{m}$ could be computed out:
+\begin{equation}
+\bm{H}_\text{eff}\left(\bm{r}\right)=-\frac{\delta \mathcal{F}}{\delta \left(M_s\bm{m}\right)}=\bm{H}_\text{ext}+\bm{H}_\text{ex}+\bm{H}_\text{m}\label{eq13}
+\end{equation}
+\begin{equation}
+\bm{H}_\text{a}=\frac{2K}{M_s}\left(\bm{m}\cdot \bm{k}\right)\bm{k}\label{eq14}
+\end{equation}
+\begin{equation}
+\bm{H}_\text{ex}=\frac{A^*}{M_s}\bm{\nabla}^2\bm{m}\label{eq15}
+\end{equation}
+\begin{equation}
+\bm{H}_\text{m}=-\frac{4\pi M_s}{V}\iiint \mathrm{d}^3\bm{r}'\tilde{N}\left(\bm{r},\bm{r}'\right)\cdot \bm{m}\left(\bm{r}'\right)\label{eq16}
+\end{equation}
+
+In the equations above, $\mathcal{H}_\text{eff}$ is the Zeeman energy between the external field $\bm{H}_\text{ext}$ and magnetization moment; $\mathcal{H}_\text{a}$ is the crystalline anisotropy energy in ferromagnet; $\bm{H}_\text{a}$ is the crystalline anisotropy field and $H_k^c=2K/M_s$ is the crystalline anisotropy constant; $\mathcal{H}_\text{ex}$ is the exchange energy and $\bm{H}_\text{ex}$ is the exchange field, $A^*$ is the exchange constant, there is an Einstein mark with $i$ in Eq. \eqref{eq11}; $\mathcal{H}_\text{m}$ is the magnetostatic interaction and $\bm{H}_\text{m}$ is the demagnetizing field; $V$ is the total volume of the crystal and $\tilde{N}$ is the demagnetizing matrix.
+\subsection{AN IMPLICIT GAUSS–SEIDEL PROJECTION SCHEME FOR THE FULL LANDAU-LIFSHITZ EQUATION}
+
+%\begin{equation}
+%\bm{h}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\epsilon \Delta \bm{m} +\bm{h}_s+\bm{h}_e
+%\end{equation}
+%\begin{equation}
+%\bm{f}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
+%\end{equation}
+%\begin{equation}
+%\left(\begin{array}{c}
+%m_1^* \\ 
+%m_2^* \\ 
+%m_3^*
+%\end{array} \right)=\left(\begin{array}{c}
+%m_1^n+\left(g_2^n m_3^n-g_3^n m_2^n\right) \\ 
+%m_2^n+\left(g_3^n m_1^*-g_1^* m_3^n\right) \\ 
+%m_3^n+\left(g_1^* m_2^*-g_2^* m_2^*\right)
+%\end{array} \right)
+%\end{equation}
+%\begin{equation}
+%\bm{f}^*=-Q\left(m_2^*\bm{e}_2+m_3^*\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
+%\end{equation}
+%\begin{equation}
+%\left(\begin{array}{c}
+%m_1^{**} \\ 
+%m_2^{**} \\ 
+%m_3^{**}
+%\end{array} \right)=\left(\begin{array}{c}
+%m_1^*=\alpha\Delta t\left(\epsilon\Delta_h m_1^{**}+f_1^*\right) \\ 
+%m_2^*=\alpha\Delta t\left(\epsilon\Delta_h m_2^{**}+f_2^*\right) \\ 
+%m_3^*=\alpha\Delta t\left(\epsilon\Delta_h m_3^{**}+f_3^*\right)
+%\end{array} \right)
+%\end{equation}
+\[
+B=
+\left(
+\begin{array}{ccccc}
+4 & -2 & 0 & 0 & 0 \\ 
+-1 & 4 & -1 & 0 & 0 \\ 
+0 & -1 & 4 & -1 & 0 \\ 
+0 & 0 & -1 & 4 & -1 \\ 
+0 & 0 & 0 & -2 & 4
+\end{array} 
+\right)
+\]
+\begin{equation}
+	\Delta_{h}=
+	\left(
+	\begin{array}{ccccc}
+		B & -2I &  &  &  \\ 
+		-I & B & -I &  &  \\ 
+		& -I & B & -I &  \\ 
+		&  & -I & B & -I \\ 
+		&  &  & -2I & B
+	\end{array} 
+	\right)\label{eq17}
+\end{equation}
+\subsection{DEMAGNETIZING MATRIX IN FERROMAGNET}
+Consider the demagnetizing matrix of a $a\times b\times c$ cuboid magnetic medium which is be uninform magnetized. Suppose that the displacement of the center of particle $i$ and the center of the particle $j$ is $\bm{r}_i-\bm{r}_j=\bm{r}=\left(x,y,z\right)$, then the demagnetizing matrix of the cuboid crystalline grain $\tilde{N}\left(\bm{r}_i,\bm{r}_j\right)$ only depends on $\bm{r}$: 
+\begin{equation}
+\tilde{N}=-\frac{1}{4\pi} \int_{-a/2}^{a/2}\mathrm{d}x'\int_{-b/2}^{b/2}\mathrm{d}y'\int_{-c/2}^{c/2}\mathrm{d}z'\bm{\nabla}'\bm{\nabla}'\frac{1}{\sqrt{\left(x-x'\right)^2+\left(y-y'\right)^2+\left(z-z'\right)^2}}\label{eq18}
+\end{equation}
+the computing results are as fellows.
+\begin{table}[h]
+	\centering
+	\caption{Table title}
+\begin{tabular}{cc}
+	\hline $\bm{R}=\left(R_1,R_2,R_3\right)$ & $\displaystyle R_1={a\over 2}+px$,$\displaystyle R_2={b\over 2}+by$,$\displaystyle R_3={c\over 2}+wz$ \\ 
+	p,q,w & only $1$ or $-1$ \\
+	\hline
+$N_{11}$ & $\displaystyle\frac{1}{4\pi}\sum_{p}\sum_{q}\sum_{w}\arctan\left[R_2R_3/R_1/R\right]$ \\ 
+$N_{22}$ & $\displaystyle\frac{1}{4\pi}\sum_{p}\sum_{q}\sum_{w}\arctan\left[R_3R_1/R_2/R\right]$ \\ 
+$N_{33}$ & $\displaystyle\frac{1}{4\pi}\sum_{p}\sum_{q}\sum_{w}\arctan\left[R_1R_2/R_3/R\right]$ \\ 
+$N_{12}=N_{21}$ & $\displaystyle\frac{1}{8\pi}\sum_{p}\sum_{q}\sum_{w}pq\ln\left[\left(R-R_3\right)/\left(R+R_3\right)\right]$ \\ 
+$N_{13}=N_{31}$ & $\displaystyle\frac{1}{8\pi}\sum_{p}\sum_{q}\sum_{w}pw\ln\left[\left(R-R_2\right)/\left(R+R_2\right)\right]$ \\ 
+$N_{23}=N_{32}$ & $\displaystyle\frac{1}{8\pi}\sum_{p}\sum_{q}\sum_{w}qw\ln\left[\left(R-R_1\right)/\left(R+R_1\right)\right]$ \\ 
+\hline 
+\end{tabular} 
+\end{table}
+\begin{equation}
+\tilde{N}=\left(\begin{array}{ccc}
+N_{11} & N_{12} & N_{13} \\ 
+N_{21} & N_{22} & N_{23} \\ 
+N_{31} & N_{32} & N_{33}
+\end{array} \right)\label{eq19}
+\end{equation}
+\section{PROGRAMMING}
+\subsection{PREPARATION}
+Consider a sample of dimensions $1\mu \mathrm{m}\times1\mu \mathrm{m}\times 200~\mathrm{\AA}$. The damping coefficient was fixed at $\alpha=0.1$ and the maximum field applied was $H_{0}=400 \mathrm{Oe}$. We ran the code with $\Delta t=2 \mathrm{ps}$.
+
+The field was tilted one degree with respect to the x-axis in order to break the symmetry.
+\subsection{}
+\begin{figure}[h]
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+\node (start) [startstop] {Start};
+\node (hex) [process, below of=start] {hex.m};
+\node (hkd) [process, left of=hex,xshift=-2cm] {hkd.m};
+\node (demag) [process, right of=hex,xshift=2cm] {demag.m};
+\node (hexdemag) [process, below of=demag] {hexdemag.m};
+\node (main) [process,below of=hex] {main-mh.m};
+\node (stop) [startstop,below of=main] {End};
+\draw[arrow] (start) -- (hex);
+\draw[arrow] (hex) -- (demag);
+\draw[arrow] (demag) -- (hexdemag);
+\draw[arrow] (hexdemag) -- (main);
+\draw[arrow] (hex) -- (hkd);
+\draw[arrow] (hkd) |- (main);
+\draw[arrow] (main) -- (stop);
+\end{tikzpicture}
+\caption{Flow Chart}
+\end{figure}
+\subsection{}
+\begin{table}[h]
+	\caption{Routine Structure to Compute the Magnetic Hystersis Loop}
+	\centering
+	\begin{tabular}{cc}
+		\toprule
+		Program Name & Details \\ 
+		\midrule
+		hex.m & 定义晶体中心的三角点阵，找到晶体内、外的近邻六棱柱，标记好\\ 
+		hkd.m & establish $\bm{H}_k^i$ with $f\left(\theta\right)$ and $P\left(H_k\right)$. \\ 
+		demag.m & compute the demagnetizing matrix. \\ 
+		hexdemag.m & FFT$\left[\tilde{N}\left(\bm{r},0\right)\right]$ \\ 
+		main-mh.m & \tabincell{c}{Main program, change the external field and compute\\ the hystersis loop with Gauss-Seidel method.} \\ 
+		\bottomrule 
+	\end{tabular}
+\end{table}
+\section{}
+\subsection{}
+
 \end{document}
+
