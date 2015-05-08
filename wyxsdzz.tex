@@ -6,7 +6,9 @@
 \usepackage{amsmath} %ams数学
 \usepackage{indentfirst}   %首行
 \setlength{\parindent}{1em}%缩进
+\usepackage{rotating}
 \usepackage{booktabs}%三划表
+\usepackage{arydshln}
 \renewcommand{\d}[2]{\frac{\text{d} #1}{\text{d} #2}} %导数\d{}{}
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} %表格换行
 \usepackage{tikz}
@@ -35,7 +37,7 @@ Landau and Lifshitz gave this equation (Eq. \eqref{eq1}) in 1935:
 \d{\bm{M}}{t}=-\gamma \bm{M}\times \bm{H}_\text{eff}-\frac{\gamma \alpha}{M_s} \bm{M}\times \left(\bm{M}\times\bm{H}_\text{eff}\right)\label{eq1}
 \end{equation}
 
-$\left|\bm{M}\right|=M_s$ is the saturation magnetization, and is usually set to a constant far from the Curie temperature $T_c$. The first term on the right side in \eqref{eq1} is the gyromagnetic term, $\gamma$ is the gyromagnetic ratio. The second term is the damping term, and $\alpha$ is the dimensionless damping coeffcient. $\bm{H}_\text{eff}$ is the local field, can be computed from the Landau-Lifshitz free energy function\footnote{functional}:
+$\left|\bm{M}\right|=M_s$ is the saturation magnetization, and is usually set to a constant far from the Curie temperature $T_c$. The first term on the right side in \eqref{eq1} is the gyromagnetic term, $\gamma$ is the gyromagnetic ratio. The second term is the damping term, and $\alpha$ is the dimensionless damping coeffcient. $\bm{H}_\text{eff}$ is the local field, can be computed from the Landau-Lifshitz free energy functional:
 \begin{equation}
 \bm{H}_\text{eff}=-\frac{\delta \mathcal{F}}{\delta \bm{M}}\label{eq2}
 \end{equation}
@@ -43,7 +45,7 @@ $\left|\bm{M}\right|=M_s$ is the saturation magnetization, and is usually set to
 \mathcal{F}\left[\bm{M}\right]=\frac{1}{2}\int_{\Omega}\left\{\Phi \left(\frac{\bm{M}}{M_s}\right)+\frac{A}{M_s^2}\left|\nabla\bm{M}\right|^2-2\mu_0\bm{H}_{e}\cdot \bm{M}\right\}\mathrm{d}x +\frac{\mu_0}{2}\int_{\mathbb{R}^3}\left|\nabla U\right|^2\mathrm{d}x\label{eq3}
 \end{equation}
 
-$A$ is the exchange constant, $\displaystyle\frac{A}{m_s^2}\left|\nabla M\right|^2$ is the exchange interaction energy between the spin, $\displaystyle \Phi\left(\frac{M}{M_s}\right)$\footnote{?} is the energy resulting from material anisotropy, $\mu_0$ is the permeability of vacuum ($\displaystyle\mu_0=4\pi\times10^{-7}\mathrm{N}\cdot \mathrm{A}^{-2}$ in the S.I.), $-2\mu_0\bm{H}_e\cdot \bm{M}$ is the energy resulting from the extercal applied field, $\Omega$ is the volume occupird by the material, and the last term in \eqref{eq3} is the energy resulting from the field induced by the magnetization disrtibution inside the material. The indeces field $\bm{H}_s=-\nabla U$ can be coputed by solving
+$A$ is the exchange constant, $\displaystyle\frac{A}{m_s^2}\left|\nabla M\right|^2$ is the exchange interaction energy between the spin, $\displaystyle \Phi\left(\frac{M}{M_s}\right)$ is the energy resulting from material anisotropy, $\mu_0$ is the permeability of vacuum ($\displaystyle\mu_0=4\pi\times10^{-7}\mathrm{N}\cdot \mathrm{A}^{-2}$ in the S.I.), $-2\mu_0\bm{H}_e\cdot \bm{M}$ is the energy resulting from the extercal applied field, $\Omega$ is the volume occupird by the material, and the last term in \eqref{eq3} is the energy resulting from the field induced by the magnetization disrtibution inside the material. The indeces field $\bm{H}_s=-\nabla U$ can be coputed by solving
 \begin{equation}
 \Delta M=\left\{\begin{array}{ll}
 \bm{\nabla}\cdot \bm{M} & \text{in}\,\Omega \\ 
@@ -71,7 +73,7 @@ where $\displaystyle N\left(x\right)=-\frac{1}{4\pi}\frac{1}{\left|x\right|}$ is
 The gyromagnetic term in the Landau-Lifshitz equation \eqref{eq1} is a conservative term,
 whereas the damping term is dissipative.
 
-This paper is organized as followws: In Section 2 we compute the effect field in ferromagnet by Landau-Lifshitz free energy function and the demagnetizing matrix in ferromagnet by .\footnote{weiwandaixu}
+This paper is organized as follows: In Section 2 we compute the effect field in ferromagnet by Landau-Lifshitz free energy function and the demagnetizing matrix in ferromagnet by .\footnote{weiwandaixu}
 \section{}
 \subsection{EFFECT FIELD IN FERROMAGNET}
 General material systems' free energy $\mathcal{F}_0$ is a function of temperature $T$ and volume $V$, that is accord with the experimental condition of non closed system. Because of the spontaneous magnetization in ferromagnet, the magnetization $\bm{M}$ isn't propertantional to the external field $\bm{H}_\text{ext}$. The total free energy of ferromagnet is (in the c.g.s. system):
@@ -82,7 +84,7 @@ General material systems' free energy $\mathcal{F}_0$ is a function of temperatu
 \mathcal{H}_\text{ext}=-\iiint\mathrm{d}^3\bm{r} M_s\bm{m}\left(\bm{r}\right)\cdot \bm{H}_\text{ext}\left(\bm{r}\right)\label{eq9}
 \end{equation}
 \begin{equation}
-\mathcal{H}_\text{a}^\text{u}=\iiint \mathrm{d}^3\bm{r} K\left[\bm{m}\left(\bm{r}\right)\times \hat{k}\left(\bm{r}\right)\right]^2\label{eq10}
+\mathcal{H}_\text{a}^\text{u}=\iiint \mathrm{d}^3\bm{r} K\left[\bm{m}\left(\bm{r}\right)\times \bm{k}\left(\bm{r}\right)\right]^2\label{eq10}
 \end{equation}
 \begin{equation}
 \mathcal{H}_\text{ex}=\frac{1}{2}\iiint \mathrm{d}^3 \bm{r} A^*\left(\frac{\partial \bm{m}\left(\bm{r}\right)}{\partial r_i}\right)\cdot \left(\frac{\partial \bm{m}\left(\bm{r}\right)}{\partial r_i}\right)\label{eq11}
@@ -107,38 +109,62 @@ Use Eq.\eqref{eq2} - Eq.\eqref{eq3}, the effect field for the local magnetizatio
 
 In the equations above, $\mathcal{H}_\text{eff}$ is the Zeeman energy between the external field $\bm{H}_\text{ext}$ and magnetization moment; $\mathcal{H}_\text{a}$ is the crystalline anisotropy energy in ferromagnet; $\bm{H}_\text{a}$ is the crystalline anisotropy field and $H_k^c=2K/M_s$ is the crystalline anisotropy constant; $\mathcal{H}_\text{ex}$ is the exchange energy and $\bm{H}_\text{ex}$ is the exchange field, $A^*$ is the exchange constant, there is an Einstein mark with $i$ in Eq. \eqref{eq11}; $\mathcal{H}_\text{m}$ is the magnetostatic interaction and $\bm{H}_\text{m}$ is the demagnetizing field; $V$ is the total volume of the crystal and $\tilde{N}$ is the demagnetizing matrix.
 \subsection{AN IMPLICIT GAUSS–SEIDEL PROJECTION SCHEME FOR THE FULL LANDAU-LIFSHITZ EQUATION}
+Since $\bm{M}$ and $\mathcal{H}$ have the same physical dimensions, we can write $\mathcal{H}=M_s\bm{h}$, $\bm{H}_s=M_s\bm{h}_s$, $\bm{H}_e=M_s\bm{h}_e$, and $\bm{M}=M_s\bm{m}$. Without loss of generality, we will assume that the material is uniaxial, and $\Phi\left(\bm{m}\right)=K_{\mu}\left(m_2^2+m_3^2\right)$. Equation \eqref{eq1} is rewritten as
+\begin{equation}
+\bm{m}_t=-\mu_{0}\gamma M_s\bm{m}\times\bm{h}-\mu_0\gamma M_s\alpha \bm{m}\times \bm{m}\times\bm{h}
+\end{equation}
+where
+\begin{equation}
+\bm{h}=-\frac{K_\mu}{\mu_0 M_s^2}\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\frac{A}{\mu_0 M_s^2}\Delta \bm{m}+\bm{h}_s+\bm{h}_e
+\end{equation}
+Here we use the notation
+\[\bm{e}_i=\left(\delta_{1i},\delta_{2i},\delta_{3i}\right)\, i=1,2,3\]
 
-%\begin{equation}
-%\bm{h}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\epsilon \Delta \bm{m} +\bm{h}_s+\bm{h}_e
-%\end{equation}
-%\begin{equation}
-%\bm{f}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
-%\end{equation}
-%\begin{equation}
-%\left(\begin{array}{c}
-%m_1^* \\ 
-%m_2^* \\ 
-%m_3^*
-%\end{array} \right)=\left(\begin{array}{c}
-%m_1^n+\left(g_2^n m_3^n-g_3^n m_2^n\right) \\ 
-%m_2^n+\left(g_3^n m_1^*-g_1^* m_3^n\right) \\ 
-%m_3^n+\left(g_1^* m_2^*-g_2^* m_2^*\right)
-%\end{array} \right)
-%\end{equation}
-%\begin{equation}
-%\bm{f}^*=-Q\left(m_2^*\bm{e}_2+m_3^*\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
-%\end{equation}
-%\begin{equation}
-%\left(\begin{array}{c}
-%m_1^{**} \\ 
-%m_2^{**} \\ 
-%m_3^{**}
-%\end{array} \right)=\left(\begin{array}{c}
-%m_1^*=\alpha\Delta t\left(\epsilon\Delta_h m_1^{**}+f_1^*\right) \\ 
-%m_2^*=\alpha\Delta t\left(\epsilon\Delta_h m_2^{**}+f_2^*\right) \\ 
-%m_3^*=\alpha\Delta t\left(\epsilon\Delta_h m_3^{**}+f_3^*\right)
-%\end{array} \right)
-%\end{equation}
+The constant $\mu_0\gamma M_s$ has dimensions of the reciprocal of time ($s^{-1}$). Therefore we rescale in time: $t \to \left(\mu_0\gamma M_s\right)^{-1}t$, and we rescale the spatial variable $x\to Lx$ where $L$ is the diameter of $\Omega$. The equation becomes
+\begin{equation}
+\bm{m}_t=-\bm{m}\times\bm{h}-\alpha \bm{m}\times\bm{m}\times\bm{h}
+\end{equation}
+where
+\begin{equation}
+\bm{h}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\epsilon \Delta \bm{m} +\bm{h}_s+\bm{h}_e
+\end{equation}
+Here are two dimensionless parameters:
+\[Q=K_{\mu}/\left(\mu_0M_s^2\right)\]\[\epsilon=A/\left(\mu_0 M_s^2L^2\right).\]
+
+Define the vector field:
+\begin{equation}
+\bm{f}=-Q\left(m_2\bm{e}_2+m_3\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
+\end{equation}
+and solve equation
+\begin{equation}
+\bm{m}_t=-\bm{m}\times\left(\epsilon \Delta \bm{m}+\bm{f}\right)-\alpha\bm{m}\times\bm{m}\times\left(\epsilon\Delta \bm{m}+\bm{f}\right)
+\end{equation}
+in Gauss-Seidel method:
+\begin{equation}
+\left(\begin{array}{c}
+m_1^* \\ 
+m_2^* \\ 
+m_3^*
+\end{array} \right)=\left(\begin{array}{c}
+m_1^n+\left(g_2^n m_3^n-g_3^n m_2^n\right) \\ 
+m_2^n+\left(g_3^n m_1^*-g_1^* m_3^n\right) \\ 
+m_3^n+\left(g_1^* m_2^*-g_2^* m_2^*\right)
+\end{array} \right)
+\end{equation}
+\begin{equation}
+\bm{f}^*=-Q\left(m_2^*\bm{e}_2+m_3^*\bm{e}_3\right)+\bm{h}_s+\bm{h}_e
+\end{equation}
+\begin{equation}
+\left(\begin{array}{c}
+m_1^{**} \\ 
+m_2^{**} \\ 
+m_3^{**}
+\end{array} \right)=\left(\begin{array}{c}
+m_1^*=\alpha\Delta t\left(\epsilon\Delta_h m_1^{**}+f_1^*\right) \\ 
+m_2^*=\alpha\Delta t\left(\epsilon\Delta_h m_2^{**}+f_2^*\right) \\ 
+m_3^*=\alpha\Delta t\left(\epsilon\Delta_h m_3^{**}+f_3^*\right)
+\end{array} \right)
+\end{equation}
 \[
 B=
 \left(
@@ -194,6 +220,56 @@ N_{31} & N_{32} & N_{33}
 \end{equation}
 \section{PROGRAMMING}
 \subsection{PREPARATION}
+\begin{table}
+\centering
+\begin{tabular}{cccc}
+
+\toprule
+
+名称&符号&数值&单位\\
+
+\midrule
+
+%样品&NiFe&$\backslash$&$\backslash$ \\
+
+electron charge电子电量&$\bm{e}$ &$1.60\times10^{-19}$ &${C}$\\
+
+electron mass电子质量&$\bm{m}_{e}$ &$9.1\times10^{-31}$ & ${Kg}$\\
+
+permeability of vacuum真空磁导率&$\mu_0$&$4\pi \times 10^{-7}$&$N/A^2$\\
+
+saturation magnetization磁化强度大小&$\bm{M_s}$& $8.0 \times 10^5$& Ampere/m\\
+
+gyromagnetic ratio旋磁比&$\bm{\gamma}$
+
+%&$-\frac{\bm{e}}{2\bm{m}_e}$&${Kg}\cdot{C}$\\
+
+%$\backslash$&$\bm{\gamma}$
+
+&$1.76\times 10^{11}$ & $T^{-1}s^{-1}$\\
+
+exchange constant交换常数&$\bm{A}$& $1.3\times 10^{-11}$& $J/m$\\
+
+crystalline anisotropy constant各向异性常数&$K_{\mu}$&$5.0 \times 10^2$&$J/m^3$\\
+
+dissipation constant耗散常数& $\alpha$ & 0.1-0.5 & $ \backslash $ \\
+
+时间间隔&$\Delta t$& $2\left(\times 10^{-12}\right)$ & picoseconds \\
+
+空间间隔&$\Delta x \left(\Delta h\right)$&0.004&$\mu$ m\\
+
+外加磁场& $H_0$ & 120 &Oe\\
+
+mesh网格&$\backslash$&\multicolumn{2}{c}{$4 nm \times 4 nm  \times 200\mathring{A}$}\\
+
+格点数&$\backslash$&\multicolumn{2}{c}{$8 \times 8$}\\
+
+初始状态&$\backslash$&\multicolumn{2}{c}{磁场与X轴偏$1^{\circ}$}\\
+
+\bottomrule
+
+\end{tabular}
+\end{table}
 Consider a sample of dimensions $1\mu \mathrm{m}\times1\mu \mathrm{m}\times 200~\mathrm{\AA}$. The damping coefficient was fixed at $\alpha=0.1$ and the maximum field applied was $H_{0}=400 \mathrm{Oe}$. We ran the code with $\Delta t=2 \mathrm{ps}$.
 
 The field was tilted one degree with respect to the x-axis in order to break the symmetry.
@@ -207,19 +283,20 @@ The field was tilted one degree with respect to the x-axis in order to break the
 \centering
 \begin{tikzpicture}[node distance=2cm]
 \node (start) [startstop] {Start};
-\node (hex) [process, below of=start] {hex.m};
-\node (hkd) [process, left of=hex,xshift=-2cm] {hkd.m};
-\node (demag) [process, right of=hex,xshift=2cm] {demag.m};
-\node (hexdemag) [process, below of=demag] {hexdemag.m};
-\node (main) [process,below of=hex] {main-mh.m};
-\node (stop) [startstop,below of=main] {End};
-\draw[arrow] (start) -- (hex);
-\draw[arrow] (hex) -- (demag);
-\draw[arrow] (demag) -- (hexdemag);
-\draw[arrow] (hexdemag) -- (main);
-\draw[arrow] (hex) -- (hkd);
-\draw[arrow] (hkd) |- (main);
-\draw[arrow] (main) -- (stop);
+\node (input) [process, below of=start] {Input parameters};
+\node (g-s) [process, below of=input] {Compute $\bm{m}$ with G-S method};
+\node (sl) [decision, below of=g-s,yshift=-0.5cm] {convergence?};
+\node (output) [process, below of=sl,yshift=-0.5cm] {Output results};
+\node (end) [startstop,below of=output] {End};
+\node (of) [decision,right of=sl,xshift=2cm] {Overflow?};
+\draw[arrow] (start) -- (input);
+\draw[arrow] (input) -- (g-s);
+\draw[arrow] (g-s) -- (sl);
+\draw[arrow] (sl) -- node[anchor=east] {yes} (output);
+\draw[arrow] (output) -- (end);
+\draw[arrow] (sl) -- node[anchor=south] {no} (of);
+\draw[arrow] (of) |- node[anchor=west] {no} (g-s);
+\draw[arrow] (of) |- node[anchor=west] {yes} (output);
 \end{tikzpicture}
 \caption{Flow Chart}
 \end{figure}
@@ -235,12 +312,36 @@ The field was tilted one degree with respect to the x-axis in order to break the
 		hkd.m & establish $\bm{H}_k^i$ with $f\left(\theta\right)$ and $P\left(H_k\right)$. \\ 
 		demag.m & compute the demagnetizing matrix. \\ 
 		hexdemag.m & FFT$\left[\tilde{N}\left(\bm{r},0\right)\right]$ \\ 
-		main-mh.m & \tabincell{c}{Main program, change the external field and compute\\ the hystersis loop with Gauss-Seidel method.} \\ 
+		main-mh.m & \tabincell{c}{Main program, change the external field and compute\\ the hystersis loop with Gauss-Seidel method.}\\
 		\bottomrule 
 	\end{tabular}
 \end{table}
 \section{}
+\begin{sidewaystable}[h]
+	\centering
+	\begin{tabular}{|c|c|ccc|c|ccc|c|}
+		&  &  &  &  &  &  &  &  &  \\ 
+		& time step & $m_1$ & $m_2$ & $m_3$ & times/s & $m_1$ & $m_2$ & $m_3$ & times \\ 
+		1000 & E-13 & 1 & 3.56029E-10 & 7.1206E-11 & 31 &  &  &  &  \\ 
+		& E-12 & 1 & 3.560291E-9 & 7.12059E-10 & 34 & 1 & 3.560291E-9 & 7.12059E-10 & 6.8 \\ 
+		5000 & E-13 & 1 & 1.780145E-9 & 3.56029E-10 & 156 &  &  &  &  \\ 
+		& E-12 & 1 & 1.7801451E-8 & 3.560300E-9 & 156 & 1 & 1.7801451E-8 & 3.560300E-9 & 33 \\ 
+		10000 & E-13 & 1 & 3.560291E-9 & 7.12059E-10 & 321 &  &  &  &  \\ 
+		& E-12 & 1 & 3.5602895E-8 & 7.120617E-9 & 329 & 0.999999999999999 & 3.5602895E-8 & 7.120617E-9 & 66 \\ 
+		50000 & E-13 & 1 & 1.7801451E-8 & 3.560300E-9 & 1575 &  &  &  &  \\ 
+		& E-12 & 1 & 1.78014183E-7 & 3.5603781E-8 & 1623 & 0.999999999999984 & 1.78014183E-7 & 3.5603781E-8 & 359 \\ 
+		100000 & E-13 & 1 & 3.5602895E-8 & 7.120617E-9 & 3165 &  &  &  &  \\ 
+		& E-12 &  &  &  &  & 0.999999999999934 & 3.56027639E-7 & 7.1209304E-8 & 697 \\ 
+	\end{tabular} 
+\end{sidewaystable}
 \subsection{}
-
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{References}
+\bibitem{1} Wang X P, Garcıa-Cervera C J, Weinan E. A Gauss–Seidel projection method for micromagnetics simulations[J]. Journal of Computational Physics, 2001, 171(1): 357-372.
+\bibitem{2} Zhang J X, Chen L Q. Phase-field microelasticity theory and micromagnetic simulations of domain structures in giant magnetostrictive materials[J]. Acta Materialia, 2005, 53(9): 2845-2855.
+\bibitem{3} Zhu B, Micromagnetic Investigation of Ferromagnetic Film Cell under the Stress-Dependence Force[D]. University of Electronic Science and Technology of China, 2008.
+\bibitem{4} Wu C X, Micromagnetic Studies on Magnetic Thin Films for Ultrahigh-density Magnetic Recording media[D]. Lanzhou University, 2006.
+\bibitem{5} Wei D. Micromagnetics and Recording Materials[M]. Springer Science \& Business Media, 2012.
+\end{thebibliography}
 \end{document}
 
